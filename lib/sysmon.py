@@ -19,6 +19,13 @@ class sysmon:
 		return psutil.cpu_percent(percpu=True)
 
 	@staticmethod
+	def cpu_temp():
+		with open('/sys/class/thermal/thermal_zone0/temp', 'r') as f:
+			temp = float(f.read()) / 1000.0
+
+		return temp
+
+	@staticmethod
 	def check_connection(url):
 		try:
 			urllib.request.urlopen(url)
