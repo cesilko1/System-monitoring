@@ -36,7 +36,7 @@ class sysmon:
 
 	
 	@staticmethod
-	def get_connections():
+	def get_connections(lo=False):
 
 		data = []
 
@@ -45,7 +45,11 @@ class sysmon:
 		for interface_name, interface_addresses in if_addrs.items():
 			for address in interface_addresses:
 				if str(address.family) == 'AddressFamily.AF_INET':
-					data.append([interface_name, address.address])
+					if lo == True:
+						data.append([interface_name, address.address])
+					else:
+						if interface_name != 'lo':
+							data.append([interface_name, address.address])
 
 
 		return data	
